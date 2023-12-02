@@ -1,0 +1,344 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: School Lunch API
+paths:
+  /cities/{cityCode}:
+    get:
+      tags:
+        - City
+      summary: Get details of a specific city
+      parameters:
+        - name: cityCode
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/City"
+  /cities:
+    get:
+      tags:
+        - City
+      summary: Get a list of cities
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/City"
+                  next:
+                    type: string
+  /cities/available:
+    get:
+      tags:
+        - City
+      summary: Get a list of cities where school lunch info is available
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/City"
+                  next:
+                    type: string
+  /cities/prefectures/{prefectureCode}:
+    get:
+      tags:
+        - City
+      summary: Get a list of cities in a specific prefecture
+      parameters:
+        - name: prefectureCode
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/City"
+                  next:
+                    type: string
+  /cities/{cityCode}/menus:
+    get:
+      tags:
+        - Menu
+      summary: Get a list of menus and their dishes for a specific city
+      parameters:
+        - name: cityCode
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/MenuWithDishes"
+                  next:
+                    type: string
+                    description: The offered_at date of the last menu in the data array
+  /cities/{cityCode}/menus/basic:
+    get:
+      tags:
+        - Menu
+      summary: Get a list of basic menu information for a specific city
+      parameters:
+        - name: cityCode
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Menu"
+                  next:
+                    type: string
+                    description: The offered_at date of the last menu in the data array
+  /cities/{cityCode}/menus/{menuId}:
+    get:
+      tags:
+        - Menu
+      summary: Get a menu and its dishes for a specific city
+      parameters:
+        - name: cityCode
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: menuId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MenuWithDishes"
+  /cities/{cityCode}/menus/{menuId}/basic:
+    get:
+      tags:
+        - Menu
+      summary: Get a basic menu information for a specific city
+      parameters:
+        - name: cityCode
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: menuId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Menu"
+  /menus:
+    get:
+      tags:
+        - Menu
+      summary: Get a list of all menus
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Menu"
+                  next:
+                    type: string
+                    description: The offered_at date of the last menu in the data array
+  /cities/{cityCode}/menus/{menuId}/dishes:
+    get:
+      tags:
+        - Dish
+      summary: Get a list of dishes for a specific menu in a specific city
+      parameters:
+        - name: cityCode
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: menuId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Dish"
+  /dishes:
+    get:
+      tags:
+        - Dish
+      summary: Get a list of all dishes
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Dish"
+components:
+  schemas:
+    Menu:
+      type: object
+      properties:
+        id:
+          type: string
+        offeredAt:
+          type: string
+          format: date
+        photoUrl:
+          type: string
+        elementarySchoolCalories:
+          type: integer
+        juniorHighSchoolCalories:
+          type: integer
+        cityCode:
+          type: integer
+    Dish:
+      type: object
+      properties:
+        id:
+          type: string
+        menuId:
+          type: string
+        name:
+          type: string
+    City:
+      type: object
+      properties:
+        cityCode:
+          type: integer
+        cityName:
+          type: string
+        prefectureCode:
+          type: integer
+        prefectureName:
+          type: string
+        schoolLunchInfoAvailable:
+          type: boolean
