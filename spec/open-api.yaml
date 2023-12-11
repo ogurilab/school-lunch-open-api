@@ -1,7 +1,10 @@
-openapi: "3.0.0"
+openapi: '3.0.0'
 info:
   version: 1.0.0
   title: School Lunch API
+servers:
+  - url: http://localhost:8080/v1
+    description: Local server
 paths:
   /cities/{cityCode}:
     get:
@@ -15,12 +18,12 @@ paths:
           schema:
             type: integer
       responses:
-        "200":
+        '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/City"
+                $ref: '#/components/schemas/City'
   /cities:
     get:
       tags:
@@ -43,7 +46,7 @@ paths:
           schema:
             type: integer
       responses:
-        "200":
+        '200':
           description: Successful operation
           content:
             application/json:
@@ -53,7 +56,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/City"
+                      $ref: '#/components/schemas/City'
                   next:
                     type: string
   /cities/available:
@@ -73,7 +76,7 @@ paths:
           schema:
             type: integer
       responses:
-        "200":
+        '200':
           description: Successful operation
           content:
             application/json:
@@ -83,7 +86,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/City"
+                      $ref: '#/components/schemas/City'
                   next:
                     type: string
   /cities/prefectures/{prefectureCode}:
@@ -108,7 +111,7 @@ paths:
           schema:
             type: integer
       responses:
-        "200":
+        '200':
           description: Successful operation
           content:
             application/json:
@@ -118,7 +121,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/City"
+                      $ref: '#/components/schemas/City'
                   next:
                     type: string
   /cities/{cityCode}/menus:
@@ -139,7 +142,7 @@ paths:
             type: string
             format: date
       responses:
-        "200":
+        '200':
           description: Successful operation
           content:
             application/json:
@@ -149,7 +152,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/MenuWithDishes"
+                      $ref: '#/components/schemas/MenuWithDishes'
                   next:
                     type: string
                     description: The offered_at date of the last menu in the data array
@@ -171,7 +174,7 @@ paths:
             type: string
             format: date
       responses:
-        "200":
+        '200':
           description: Successful operation
           content:
             application/json:
@@ -181,7 +184,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Menu"
+                      $ref: '#/components/schemas/Menu'
                   next:
                     type: string
                     description: The offered_at date of the last menu in the data array
@@ -202,12 +205,12 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MenuWithDishes"
+                $ref: '#/components/schemas/MenuWithDishes'
   /cities/{cityCode}/menus/{menuId}/basic:
     get:
       tags:
@@ -225,12 +228,12 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Menu"
+                $ref: '#/components/schemas/Menu'
   /menus:
     get:
       tags:
@@ -249,7 +252,7 @@ paths:
             type: string
             format: date
       responses:
-        "200":
+        '200':
           description: Successful operation
           content:
             application/json:
@@ -259,7 +262,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Menu"
+                      $ref: '#/components/schemas/Menu'
                   next:
                     type: string
                     description: The offered_at date of the last menu in the data array
@@ -280,28 +283,28 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Successful operation
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Dish"
+                  $ref: '#/components/schemas/Dish'
   /dishes:
     get:
       tags:
         - Dish
       summary: Get a list of all dishes
       responses:
-        "200":
+        '200':
           description: Successful operation
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Dish"
+                  $ref: '#/components/schemas/Dish'
 components:
   schemas:
     Menu:
