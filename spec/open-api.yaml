@@ -184,7 +184,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResMenu'
+                $ref: '#/components/schemas/ResMenus'
         '400':
           description: Bad request
           content:
@@ -469,7 +469,7 @@ components:
     ResMenuWithDishes:
       type: object
       properties:
-        data:
+        menus:
           type: array
           items:
             $ref: '#/components/schemas/MenuWithDishes'
@@ -478,10 +478,10 @@ components:
           description: The offered_at date of the last menu in the data array
       required:
         - data
-    ResMenu:
+    ResMenus:
       type: object
       properties:
-        data:
+        menus:
           type: array
           items:
             $ref: '#/components/schemas/Menu'
