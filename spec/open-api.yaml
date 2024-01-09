@@ -5,6 +5,17 @@ info:
 servers:
   - url: http://localhost:8080/v1
     description: Local server
+tags:
+  - name: City
+    description: City related endpoints
+  - name: Menu
+    description: Menu related endpoints
+  - name: Dish
+    description: Dish related endpoints
+  - name: Menu with Dishes
+    description: Menu with Dishes related endpoints
+  - name: Basic Menu
+    description: Basic Menu related endpoints not including dishes
 paths:
   /cities/{cityCode}:
     get:
@@ -35,36 +46,6 @@ paths:
           required: false
           schema:
             type: string
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/City'
-                  next:
-                    type: string
-  /cities/available:
-    get:
-      tags:
-        - City
-      summary: Get a list of cities where school lunch info is available
-      parameters:
         - name: limit
           in: query
           required: false
@@ -128,6 +109,7 @@ paths:
     get:
       tags:
         - Menu
+        - Menu with Dishes
       summary: Get a list of menus and their dishes for a specific city
       parameters:
         - name: cityCode
@@ -139,27 +121,44 @@ paths:
           in: query
           required: false
           schema:
+            type: integer
+        - name: offered
+          in: query
+          required: false
+          schema:
             type: string
             format: date
+          description: The date of the menu. if not specified, the latest menu will be returned.
       responses:
         '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/MenuWithDishes'
-                  next:
-                    type: string
-                    description: The offered_at date of the last menu in the data array
+                $ref: '#/components/schemas/ResMenuWithDishes'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /cities/{cityCode}/menus/basic:
     get:
       tags:
         - Menu
+        - Basic Menu
       summary: Get a list of basic menu information for a specific city
       parameters:
         - name: cityCode
@@ -171,27 +170,44 @@ paths:
           in: query
           required: false
           schema:
+            type: integer
+        - name: offered
+          in: query
+          required: false
+          schema:
             type: string
             format: date
+          description: The date of the menu. if not specified, the latest menu will be returned.
       responses:
         '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Menu'
-                  next:
-                    type: string
-                    description: The offered_at date of the last menu in the data array
+                $ref: '#/components/schemas/ResMenu'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /cities/{cityCode}/menus/{menuId}:
     get:
       tags:
         - Menu
+        - Menu with Dishes
       summary: Get a menu and its dishes for a specific city
       parameters:
         - name: cityCode
@@ -211,6 +227,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MenuWithDishes'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /cities/{cityCode}/menus/{menuId}/basic:
     get:
       tags:
@@ -234,6 +274,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Menu'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /menus:
     get:
       tags:
@@ -249,23 +313,39 @@ paths:
           in: query
           required: false
           schema:
+            type: integer
+        - name: offered
+          in: query
+          required: false
+          schema:
             type: string
             format: date
+          description: The date of the menu. if not specified, the latest menu will be returned.
       responses:
         '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Menu'
-                  next:
-                    type: string
-                    description: The offered_at date of the last menu in the data array
+                $ref: '#/components/schemas/ResMenuWithDishes'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /cities/{cityCode}/menus/{menuId}/dishes:
     get:
       tags:
@@ -305,6 +385,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Dish'
+
 components:
   schemas:
     Menu:
@@ -323,6 +404,13 @@ components:
           type: integer
         cityCode:
           type: integer
+      required:
+        - id
+        - offeredAt
+        - cityCode
+        - elementarySchoolCalories
+        - juniorHighSchoolCalories
+
     Dish:
       type: object
       properties:
@@ -332,6 +420,39 @@ components:
           type: string
         name:
           type: string
+      required:
+        - id
+        - menuId
+        - name
+
+    MenuWithDishes:
+      type: object
+      properties:
+        id:
+          type: string
+        offeredAt:
+          type: string
+          format: date
+        photoUrl:
+          type: string
+        elementarySchoolCalories:
+          type: integer
+        juniorHighSchoolCalories:
+          type: integer
+        cityCode:
+          type: integer
+        dishes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dish'
+      required:
+        - id
+        - offeredAt
+        - cityCode
+        - elementarySchoolCalories
+        - juniorHighSchoolCalories
+        - dishes
+
     City:
       type: object
       properties:
@@ -345,3 +466,32 @@ components:
           type: string
         schoolLunchInfoAvailable:
           type: boolean
+    ResMenuWithDishes:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuWithDishes'
+        next:
+          type: string
+          description: The offered_at date of the last menu in the data array
+      required:
+        - data
+    ResMenu:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Menu'
+        next:
+          type: string
+          description: The offered_at date of the last menu in the data array
+      required:
+        - data
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
