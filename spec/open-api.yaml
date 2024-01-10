@@ -129,11 +129,11 @@ paths:
             type: integer
         - name: offered
           in: query
-          required: false
+          required: true
           schema:
             type: string
             format: date
-          description: The date of the menu. if not specified, the latest menu will be returned.
+          description: The date of the menu.
       responses:
         '200':
           description: Successful operation
@@ -183,11 +183,11 @@ paths:
             type: integer
         - name: offered
           in: query
-          required: false
+          required: true
           schema:
             type: string
             format: date
-          description: The date of the menu. if not specified, the latest menu will be returned.
+          description: The date of the menu.
       responses:
         '200':
           description: Successful operation
@@ -326,11 +326,11 @@ paths:
             type: integer
         - name: offered
           in: query
-          required: false
+          required: true
           schema:
             type: string
             format: date
-          description: The date of the menu. if not specified, the latest menu will be returned.
+          description: The date of the menu.
       responses:
         '200':
           description: Successful operation
