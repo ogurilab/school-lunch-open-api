@@ -569,13 +569,10 @@ components:
       properties:
         id:
           type: string
-        menuId:
-          type: string
         name:
           type: string
       required:
         - id
-        - menuId
         - name
 
     MenuWithDishes:
