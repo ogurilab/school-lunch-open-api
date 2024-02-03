@@ -546,23 +546,23 @@ components:
       properties:
         id:
           type: string
-        offeredAt:
+        offered_at:
           type: string
           format: date
-        photoUrl:
+        photo_url:
           type: string
-        elementarySchoolCalories:
+        elementary_school_calories:
           type: integer
-        juniorHighSchoolCalories:
+        junior_high_school_calories:
           type: integer
-        cityCode:
+        city_code:
           type: integer
       required:
         - id
-        - offeredAt
-        - cityCode
-        - elementarySchoolCalories
-        - juniorHighSchoolCalories
+        - offered_at
+        - city_code
+        - elementary_school_calories
+        - junior_high_school_calories
 
     Dish:
       type: object
@@ -580,16 +580,16 @@ components:
       properties:
         id:
           type: string
-        offeredAt:
+        offered_at:
           type: string
           format: date
-        photoUrl:
+        photo_url:
           type: string
-        elementarySchoolCalories:
+        elementary_school_calories:
           type: integer
-        juniorHighSchoolCalories:
+        junior_high_school_calories:
           type: integer
-        cityCode:
+        city_code:
           type: integer
         dishes:
           type: array
@@ -597,25 +597,32 @@ components:
             $ref: '#/components/schemas/Dish'
       required:
         - id
-        - offeredAt
-        - cityCode
-        - elementarySchoolCalories
-        - juniorHighSchoolCalories
+        - offered_at
+        - city_code
+        - elementary_school_calories
+        - junior_high_school_calories
         - dishes
 
     City:
       type: object
       properties:
-        cityCode:
+        city_code:
           type: integer
-        cityName:
+        city_name:
           type: string
-        prefectureCode:
+        prefecture_code:
           type: integer
-        prefectureName:
+        prefecture_name:
           type: string
-        schoolLunchInfoAvailable:
+        school_lunch_info_available:
           type: boolean
+      required:
+        - city_code
+        - city_name
+        - prefecture_code
+        - prefecture_name
+        - school_lunch_info_available
+
     ResMenuWithDishes:
       type: object
       properties:
