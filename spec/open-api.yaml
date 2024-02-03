@@ -751,7 +751,7 @@ components:
               items:
                 type: string
           required:
-            - menuIds
+            - menu_ids
     DishWithMenus:
       type: object
       allOf:
