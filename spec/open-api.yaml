@@ -448,6 +448,120 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
+  /cities/{cityCode}/dishes/{dishId}:
+    get:
+      tags:
+        - Dish
+      summary: Get a dish for a specific city and return the ID of the menu that contains that dish.
+      parameters:
+        - name: cityCode
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: dishId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DishWithMenuIds'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /cities/{cityCode}/dishes/{dishId}/menus:
+    get:
+      tags:
+        - Dish
+      summary: Get a list of menus that contain a specific dish in a specific city
+      parameters:
+        - name: cityCode
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: dishId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DishWithMenus'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /dishes/{dishId}:
     get:
       tags:
