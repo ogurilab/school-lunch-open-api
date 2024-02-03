@@ -746,7 +746,7 @@ components:
         - $ref: '#/components/schemas/Dish'
         - type: object
           properties:
-            menuIds:
+            menu_ids:
               type: array
               items:
                 type: string
