@@ -59,7 +59,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
   /cities:
     get:
       tags:
@@ -447,25 +446,91 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
-  /dishes/{dishId}:
+  /cities/{cityCode}/dishes/{dishId}:
     get:
       tags:
         - Dish
-      summary: Get a dish for a specific menu.
+      summary: Get a dish for a specific city and return the ID of the menu that contains that dish.
       parameters:
+        - name: cityCode
+          in: path
+          required: true
+          schema:
+            type: integer
         - name: dishId
           in: path
           required: true
           schema:
             type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
       responses:
         '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Dish'
+                $ref: '#/components/schemas/DishWithMenuIds'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /dishes/{dishId}:
+    get:
+      tags:
+        - Dish
+      summary: Get a dish for a specific menu and return the ID of the menu that contains that dish.
+      parameters:
+        - name: dishId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DishWithMenuIds'
         '400':
           description: Bad request
           content:
@@ -574,7 +639,18 @@ components:
       required:
         - id
         - name
-
+    DishWithMenuIds:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Dish'
+        - type: object
+          properties:
+            menu_ids:
+              type: array
+              items:
+                type: string
+          required:
+            - menu_ids
     MenuWithDishes:
       type: object
       properties:
