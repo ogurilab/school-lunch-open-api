@@ -424,7 +424,6 @@ paths:
             items:
               type: string
           description: The ID of the menu.
-          example: ['01HNJ95550ZE8ACMVFKFCKC1DY', '01HNJ95550ZE8ACMVFKFCKC1DY']
         - name: limit
           in: query
           required: false
