@@ -365,6 +365,16 @@ paths:
         - Menu
       summary: Get a list of all menus
       parameters:
+        - name: id
+          in: query
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+          description: The ID of the menu.
         - name: limit
           in: query
           required: false
