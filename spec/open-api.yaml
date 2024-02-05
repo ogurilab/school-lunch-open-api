@@ -407,6 +407,66 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /menus/basic:
+    get:
+      tags:
+        - Menu
+        - Basic Menu
+      summary: Get a list of basic menu information for all menus
+      parameters:
+        - name: id
+          in: query
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+          description: The ID of the menu.
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offered
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+          description: The date of the menu.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResMenus'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
   /menus/{menuId}/dishes:
     get:
       tags:
