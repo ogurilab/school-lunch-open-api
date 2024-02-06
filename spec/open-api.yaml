@@ -16,6 +16,8 @@ tags:
     description: Menu with Dishes related endpoints
   - name: Basic Menu
     description: Basic Menu related endpoints not including dishes
+  - name: Allergen
+    description: Allergen related endpoints
 paths:
   /cities/{cityCode}:
     get:
