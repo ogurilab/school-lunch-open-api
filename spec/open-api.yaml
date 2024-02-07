@@ -855,9 +855,12 @@ components:
           type: number
         name:
           type: string
+        category:
+          type: number
       required:
         - id
         - name
+        - category
     ResMenuWithDishes:
       type: object
       properties:
